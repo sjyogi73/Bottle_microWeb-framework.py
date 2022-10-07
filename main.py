@@ -15,18 +15,23 @@ app = Bottle()
 @app.route('/')
 def method():
     return '''
-        <h1>WELCOME THE THE BOTTLE FRAMEWORK</h1>
+    <div style="display:flex" >
+        
+        <img style="height:30px;width: 30px;margin:25px 30px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPHRvtFUvNT9Rrpz2HE4gu05hPPg8m7DweCg&usqp=CAU"/>
+        <h1>WELCOME - THE THE - BOTTLE - FRAMEWORK</h1>
+    </div>
+        
     '''
+
+
+@app.route('/home')
+def index():
+    return template('index')
 
 
 @app.route('/routing/<path>')
 def pass_path(path='name'):
-    return template('Hello this is an Nested pass path of location {{path}}', path=path)
-
-
-@app.route('/object/<id:int>')
-def callback(id):
-    assert isinstance(id, int)
+    return template('Hello this is an - Nested pass path of location - {{path}}', path=path)
 
 
 @app.get('/login')
@@ -41,17 +46,18 @@ def login():
     '''
 
 
-@route('/static/<filename>')
-def server_static(filename):
-    return static_file(filename, root='/path/to/your/static/files')
+@route('/home/<filename:path>')
+def server_static(filepath):
+    return static_file(filepath, root='/index.html')
 
 
 # Error Reporter
 @app.error(404)
 def error_message(error):
     return '''
-        <h3>Its an 404 error</h3>
+        <h3>Please Give Valid Request Because Its Request Not Found(404)</h3>
+        <h1 style="margin:5em,color:red"> ERROR - 404</h1>
     '''
 
 
-run(app, host="localhost", port="4572", debug="true")
+run(app, host="127.0.0.1", port="4572", debug="true")
